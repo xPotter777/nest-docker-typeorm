@@ -1,0 +1,14 @@
+{
+  "database": {
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "brasilianJiujutsu",
+    "password": "123456",
+    "database": "nest_auth_db"
+  },
+  "jwt": {
+    "secret": "yourSecretKey",
+    "expiresIn": "1h"
+  }
+}
