@@ -1,6 +1,14 @@
-import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  ValidationPipe,
+  Get,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { JwtAuthGuard } from '../infrastructure/guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -18,5 +26,11 @@ export class AuthController {
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
   ): Promise<{ accessToken: string }> {
     return this.authService.signIn(authCredentialsDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('some-protected-route')
+  someProtectedRoute() {
+    return 'This route is protected';
   }
 }
