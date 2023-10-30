@@ -5,6 +5,8 @@ import {
   ValidationPipe,
   Get,
   UseGuards,
+  Request,
+  Response,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
@@ -29,8 +31,10 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('some-protected-route')
-  someProtectedRoute() {
-    return 'This route is protected';
+  @Get('/sign-out')
+  async signOut(@Request() req, @Response() res): Promise<string> {
+    res.setHeader('Authorization', '');
+
+    return 'Logged out';
   }
 }
