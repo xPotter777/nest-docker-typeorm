@@ -1,9 +1,11 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import * as config from 'config';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const config = require('config');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { DataSource, DataSourceOptions } = require('typeorm');
 
 const dbConfig = config.get('database');
 
-export const typeOrmConfig: TypeOrmModuleOptions = {
+const options = {
   type: dbConfig.type,
   host: process.env.DATABASE_HOSTNAME || dbConfig.host,
   port: process.env.DATABASE_PORT || dbConfig.port,
@@ -14,3 +16,9 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   synchronize: false,
   autoLoadEntities: true,
 };
+
+const dataSource = new DataSource(options);
+
+dataSource.initialize();
+
+module.exports = { dataSource };
