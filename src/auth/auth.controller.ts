@@ -6,11 +6,14 @@ import {
   Get,
   UseGuards,
   Header,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { JwtAuthGuard } from '../infrastructure/guards/jwt-auth.guard';
+import { TransformResponseInterceptor } from '../infrastructure/interceptors/transform-response.interceptor';
 
+@UseInterceptors(TransformResponseInterceptor)
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}

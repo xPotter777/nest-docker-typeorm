@@ -6,7 +6,7 @@
 
 ## After you have started the app you can use 
 
-` - docker-compose exec app ts-node node_modules/typeorm/cli.js migration:run -d ormconfig.js`
+` - docker-compose exec app ts-node node_modules/typeorm/cli.js migration:run -d ./orm.config.js`
 
 **To run the migrations, current migration will create a 'user' table.**
 
